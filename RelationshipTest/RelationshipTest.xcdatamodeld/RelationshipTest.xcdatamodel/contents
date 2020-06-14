@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Customer" representedClassName="Customer" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="numberOfLocations" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="locationList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Location" inverseName="fromCustomer" inverseEntity="Location"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES" codeGenerationType="class">
+        <attribute name="address" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <relationship name="fromCustomer" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="locationList" inverseEntity="Customer"/>
+    </entity>
+    <elements>
+        <element name="Customer" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Location" positionX="-36" positionY="9" width="128" height="88"/>
+    </elements>
+</model>
