@@ -21,7 +21,7 @@ struct LocationList: View {
             sortDescriptors: [],
             predicate: NSPredicate(format: "fromCustomer.id == %@", selectedCustomer.id!)
         )
-
+        
     }
     
     var btnNewLocation : some View { Button(action: {
@@ -29,7 +29,8 @@ struct LocationList: View {
         let object = Location(context: self.moc)
         object.id = UUID().uuidString
         object.address = UUID().uuidString
-        self.selectedCustomer.numberOfLocations += 1
+        
+        self.selectedCustomer.flag = UUID().uuidString
         object.fromCustomer = self.selectedCustomer
                 
         try? self.moc.save()
@@ -53,8 +54,8 @@ struct LocationList: View {
 
                             print("Tapped and changed selected parent object")
                             
-                            self.selectedCustomer.name = "Changed"
-                            
+                            self.selectedCustomer.flag = UUID().uuidString
+
                             try? self.moc.save()
                             
                             self.presentationMode.wrappedValue.dismiss()
@@ -68,6 +69,18 @@ struct LocationList: View {
 
             }
             
+
+        }.onAppear(){
+            
+            self.selectedCustomer.flag = UUID().uuidString
+                    
+            try? self.moc.save()
+
+        }.onDisappear(){
+            
+            self.selectedCustomer.flag = UUID().uuidString
+
+            try? self.moc.save()
 
         }
         .navigationBarTitle(Text("\(selectedCustomer.name ?? "?")"), displayMode: .inline)
@@ -84,7 +97,7 @@ struct LocationList: View {
 
         }
         
-        self.selectedCustomer.numberOfLocations -= 1
+        self.selectedCustomer.flag = UUID().uuidString
         
         try? self.moc.save()
 
